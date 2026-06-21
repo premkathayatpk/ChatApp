@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { serverUrl } from "../main";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../redux/userSlice";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -9,8 +11,11 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.user);
 
-  const handleSignup = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const res = await fetch(`${serverUrl}/api/auth/signup`, {
         method: "POST",
@@ -21,6 +26,9 @@ const Signup = () => {
       });
 
       const data = await res.json();
+
+      dispatch(setUserData(data.data));
+
       if (res.ok) {
         alert("Signup Successfull");
         navigate("/login");
@@ -32,10 +40,7 @@ const Signup = () => {
       alert(`Signup error ${error.message}`);
     }
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await handleSignup();
-  };
+
   return (
     <div className="w-full h-[100vh] bg-slate-200 flex items-center justify-center">
       <div className="w-full max-w-[500px] h-[600px] bg-white rounded-lg shadow-gray-400 shadow-lg  flex flex-col gap-[30px]">

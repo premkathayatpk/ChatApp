@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { serverUrl } from "../main";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../redux/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.user);
+  console.log(userData);
 
   const handleLogin = async () => {
     try {
@@ -20,9 +25,11 @@ const Login = () => {
       });
 
       const data = await res.json();
+
       if (res.ok) {
         alert("Login Successfull");
-        console.log(data);
+        dispatch(setUserData(data.data));
+
         // navigate("/login");
       } else {
         alert(`Login error ${data.message || "Something went wrong"}`);
