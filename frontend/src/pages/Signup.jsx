@@ -12,7 +12,6 @@ const Signup = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,11 +22,12 @@ const Signup = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userName, email, password }),
+        credentials: "include",
       });
 
       const data = await res.json();
 
-      dispatch(setUserData(data.data));
+      dispatch(setUserData(data));
 
       if (res.ok) {
         alert("Signup Successfull");

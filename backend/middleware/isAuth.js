@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const isAuth = async (req, res, next) => {
+const isAuth = (req, res, next) => {
   try {
     const token = req.cookies.token;
 
@@ -8,8 +8,8 @@ const isAuth = async (req, res, next) => {
       return res.status(400).json({ message: "Token is not found" });
     }
 
-    const verifyToken = await jwt.verify(token, process.env.JWT_SECRET);
-    console.log(verifyToken);
+    const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(verifyToken);
 
     req.userId = verifyToken.userId;
     next();

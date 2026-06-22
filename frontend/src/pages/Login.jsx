@@ -10,11 +10,13 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.user);
-  console.log(userData);
 
-  const handleLogin = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isLoading) return;
+    setIsLoading(true);
     try {
       const res = await fetch(`${serverUrl}/api/auth/login`, {
         method: "POST",
@@ -22,26 +24,26 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
+        credentials: "include",
       });
 
       const data = await res.json();
 
       if (res.ok) {
         alert("Login Successfull");
-        dispatch(setUserData(data.data));
 
-        // navigate("/login");
+        dispatch(setUserData(data));
+
+        navigate("/home");
       } else {
         alert(`Login error ${data.message || "Something went wrong"}`);
       }
     } catch (error) {
       console.error("Login error", error);
       alert(`Login error ${error.message}`);
+    } finally {
+      setIsLoading(false);
     }
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await handleLogin();
   };
   return (
     <div className="w-full h-[100vh] bg-slate-200 flex items-center justify-center">
@@ -86,7 +88,7 @@ const Login = () => {
             type="submit"
             className="px-[20px] py-[10px] bg-[#20c7ff] rounded-2xl shadow-gray-400 shadow-lg mt-[20px] text-[20px] w-[200px] font-semibold hover:shadow-inner cursor-pointer"
           >
-            Login
+            {isLoading ? "Logging in..." : "Login"}
           </button>
 
           <p
