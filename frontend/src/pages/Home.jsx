@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import Sidebar from "../components/Sidebar";
+import MessageArea from "../components/MessageArea";
 
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <div className="w-full h-full flex border">
+      <Sidebar />
+      <MessageArea />
+    </div>
+  );
+};
 
-export default Home
+export default Home;

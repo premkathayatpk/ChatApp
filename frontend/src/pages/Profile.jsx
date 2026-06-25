@@ -75,7 +75,9 @@ const Profile = () => {
         <div className="w-[200px] h-[200px]  rounded-full flex justify-center items-center  overflow-hidden">
           <img src={frontendImg} alt="profile" className="h-[100%] " />
         </div>
-        <IoCameraOutline className="absolute bottom-8 right-5 text-gray-700 w-[28px] h-[28px] " />
+        <div className="absolute bottom-2 right-5 p-1 bg-[#20c7ff] rounded-full shadow-gray-400 shadow-lg">
+          <IoCameraOutline className=" text-gray-700 w-[28px] h-[28px] " />
+        </div>
       </div>
 
       <form
@@ -96,19 +98,19 @@ const Profile = () => {
             setName(e.target.value);
           }}
           value={name}
-          className="w-[90%] h-[50px] outline-none border-2 border-[#20c7ff] px-[20px] py-[10px] bg-white rounded-lg shadow-gray-200 shadow-lg "
+          className="w-[90%] h-[50px] outline-none border-2 border-[#20c7ff] px-[20px] py-[10px] bg-white rounded-lg shadow-gray-400 shadow-lg "
         />
         <input
           type="text"
           value={userData?.user?.userName || userData?.userName}
           readOnly
-          className="w-[90%] h-[50px] outline-none border-2 border-[#20c7ff] px-[20px] py-[10px] bg-white rounded-lg shadow-gray-200 shadow-lg text-gray-400 "
+          className="w-[90%] h-[50px] outline-none border-2 border-[#20c7ff] px-[20px] py-[10px] bg-white rounded-lg shadow-gray-400 shadow-lg text-gray-400 "
         />
         <input
           type="email"
           value={userData?.user?.email || userData?.email || ""}
           readOnly
-          className="w-[90%] h-[50px] outline-none border-2 border-[#20c7ff] px-[20px] py-[10px] bg-white rounded-lg shadow-gray-200 shadow-lg text-gray-400 "
+          className="w-[90%] h-[50px] outline-none border-2 border-[#20c7ff] px-[20px] py-[10px] bg-white rounded-lg shadow-gray-400 shadow-lg text-gray-400 "
         />
         <button
           className="px-[20px] py-[10px] bg-[#20c7ff] rounded-2xl shadow-gray-400 shadow-lg mt-[20px] text-[20px] w-[200px] font-semibold hover:shadow-inner cursor-pointer"
