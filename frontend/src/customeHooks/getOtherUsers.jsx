@@ -1,10 +1,9 @@
-import { useEffect } from "react";
-import { serverUrl } from "../main";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserData } from "../redux/userSlice";
-import { data } from "react-router-dom";
+import { setOtherUsers } from "../redux/userSlice";
+import { serverUrl } from "../main";
 
-const useCurrentUser = () => {
+const getOtherUsers = () => {
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.user);
   useEffect(() => {
@@ -12,21 +11,21 @@ const useCurrentUser = () => {
 
     const fetchUser = async () => {
       try {
-        let res = await fetch(`${serverUrl}/api/user/current`, {
+        let res = await fetch(`${serverUrl}/api/user/others`, {
           method: "GET",
           credentials: "include",
         });
         const data = await res.json();
         if (res.ok) {
-          dispatch(setUserData(data.data || data));
+          dispatch(setOtherUsers(data.data || data));
         }
       } catch (error) {
         console.error("Error fetching current user:", error);
       }
     };
     fetchUser();
-  }, [dispatch, userData]);
+  }, [userData]);
   return userData;
 };
 
-export default useCurrentUser;
+export default getOtherUsers;

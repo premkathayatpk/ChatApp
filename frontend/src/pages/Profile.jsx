@@ -46,6 +46,7 @@ const Profile = () => {
       if (res.ok) {
         alert("Profile updated successfully!");
         dispatch(setUserData(data.user || data.data || data));
+        navigate("/");
       } else {
         alert(`Update failed: ${data.message || "Something went wrong"}`);
       }

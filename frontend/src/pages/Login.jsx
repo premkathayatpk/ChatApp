@@ -34,7 +34,7 @@ const Login = () => {
 
         dispatch(setUserData(data));
 
-        navigate("/home");
+        navigate("/");
       } else {
         alert(`Login error ${data.message || "Something went wrong"}`);
       }

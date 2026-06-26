@@ -5,10 +5,12 @@ import Signup from "./pages/Signup";
 import { useSelector } from "react-redux";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import useCurrentUser from "./customeHooks/useCurrentUser";
+import getCurrentUser from "./customeHooks/getCurrentUser";
+import getOtherUsers from "./customeHooks/getOtherUsers";
 
 const App = () => {
-  useCurrentUser();
+  getCurrentUser();
+  getOtherUsers();
   const { userData } = useSelector((state) => state.user);
 
   return (
