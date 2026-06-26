@@ -30,10 +30,14 @@ export const updateProfile = async (req, res) => {
       image = await uploadOnCloudinary(req.file.path);
     }
 
-    const user = await User.findByIdAndUpdate(req.userId, {
-      name,
-      image,
-    });
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      {
+        name,
+        image,
+      },
+      { new: true },
+    );
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -43,5 +47,20 @@ export const updateProfile = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: `Profile Error ${error}` });
+  }
+};
+
+//get other user
+
+export const getOtherUsers = async (req, res) => {
+  try {
+    const users = await User.find({
+      _id: { $ne: req.userId },
+    }).select("-password");
+
+    return res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: `Get other users error ${error}` });
   }
 };
