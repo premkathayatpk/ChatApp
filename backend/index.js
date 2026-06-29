@@ -5,6 +5,7 @@ import authRouter from "./routes/authRoute.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRouter from "./routes/userRoute.js";
+import messageRoute from "./routes/messageRoute.js";
 dotenv.config();
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(
 //APIs
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/message", messageRoute);
 
 //Db connect
 connectDB();
