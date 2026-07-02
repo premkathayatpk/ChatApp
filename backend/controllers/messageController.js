@@ -1,5 +1,5 @@
 import uploadOnCloudinary from "../config/cloudinary.js";
-import { upload } from "../middleware/multer";
+import { upload } from "../middleware/multer.js";
 import Conversation from "../models/conversationModel.js";
 import Message from "../models/messageModel.js";
 
@@ -47,7 +47,7 @@ export const sendMessage = async (req, res) => {
 export const getMessages = async (req, res) => {
   try {
     const sender = req.userId;
-    const receiver = req.params;
+    const { receiver } = req.params;
 
     let conversation = await Conversation.findOne({
       partcipants: { $all: [sender, receiver] },

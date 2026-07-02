@@ -1,8 +1,8 @@
 import express from "express";
 
 import isAuth from "../middleware/isAuth.js";
-import { upload } from "../middleware/multer.js";
 import { getMessages, sendMessage } from "../controllers/messageController.js";
+import { upload } from "../middleware/multer.js";
 
 const messageRoute = express.Router();
 
